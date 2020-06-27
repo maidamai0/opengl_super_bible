@@ -1,2 +1,3 @@
 # opengl_super_bible
-code for opengl super bible
+
+practice code for [opengl super bible](http://www.openglsuperbible.com/)
