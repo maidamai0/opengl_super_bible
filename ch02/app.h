@@ -13,12 +13,19 @@
 
 #include "common/app.h"
 
+#include "cmath"
 #include <array>
+#include <chrono>
+#include <thread>
 
 class App : public Application {
-    public:
-    void render(double current_time) {
-        static const std::array<GLfloat,4> red{1.0, 0.0,0.0, 1.0};
-        glClearBufferfv(GL_COLOR,0, red.data());
-    }
+public:
+  void render(double current_time) {
+    const auto r = sin(static_cast<float>(current_time)) / 2 + 0.5f;
+    const auto g = sin(static_cast<float>(current_time) + 1.0f / 3) / 2 + 0.5f;
+    const auto b = sin(static_cast<float>(current_time) + 2.0f / 3) / 2 + 0.5f;
+    const std::array<GLfloat, 4> red{r, g, b, 0.1f};
+    glClearBufferfv(GL_COLOR, 0, red.data());
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+  }
 };
