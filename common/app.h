@@ -82,7 +82,7 @@ public:
     // Define the viewport dimensions
     glViewport(0, 0, info_.windowWidth, info_.windowHeight);
 
-    glfwSetWindowSizeCallback(window_,&Application::on_resize);
+    glfwSetWindowSizeCallback(window_, &Application::on_resize);
     glfwSetKeyCallback(window_, &Application::on_key);
     glfwSetMouseButtonCallback(window_, &Application::on_mouse_button);
     glfwSetCursorPosCallback(window_, &Application::on_mouse_move);
@@ -100,12 +100,16 @@ public:
       glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     }
 
+    start_up();
+
     while (glfwWindowShouldClose(window_) != GL_TRUE) {
       render(glfwGetTime());
 
       glfwSwapBuffers(window_);
       glfwPollEvents();
     }
+
+    shut_down();
 
     glfwDestroyWindow(window_);
     glfwTerminate();
@@ -125,19 +129,53 @@ public:
 protected:
   static void on_resize(GLFWwindow *window, int w, int h) {}
 
-  static void on_key(GLFWwindow *window, int key, int scancode, int action, int mods) {
-  }
+  static void on_key(GLFWwindow *window, int key, int scancode, int action,
+                     int mods) {}
 
-  static void on_mouse_button(GLFWwindow *window, int button, int action, int mods) {}
+  static void on_mouse_button(GLFWwindow *window, int button, int action,
+                              int mods) {}
 
   static void on_mouse_move(GLFWwindow *window, double x, double y) {}
 
-  static void on_mouse_wheel(GLFWwindow *window, double xoffset, double yoffset) {}
-  static void debug_callback(GLenum source, GLenum type, GLuint id, GLenum severity,
-                      GLsizei length, const GLchar *message,
-                      GLvoid *userParam){};
+  static void on_mouse_wheel(GLFWwindow *window, double xoffset,
+                             double yoffset) {}
+  static void debug_callback(GLenum source, GLenum type, GLuint id,
+                             GLenum severity, GLsizei length,
+                             const GLchar *message, GLvoid *userParam){};
 
   virtual void render(double current_time) {}
+  virtual void start_up(){};
+  virtual void shut_down(){};
+  void check_error() {
+    const auto error = glGetError();
+
+    switch (error) {
+    case GL_NO_ERROR: {
+      break;
+    }
+    case GL_INVALID_ENUM: {
+      std::cerr << "GL_INVALID_ENUM" << std::endl;
+    }
+    case GL_INVALID_VALUE: {
+      std::cerr << "GL_INVALID_VALUE" << std::endl;
+    }
+    case GL_INVALID_OPERATION: {
+      std::cerr << "GL_INVALID_OPERATION" << std::endl;
+    }
+    case GL_INVALID_FRAMEBUFFER_OPERATION: {
+      std::cerr << "GL_INVALID_FRAMEBUFFER_OPERATION" << std::endl;
+    }
+    case GL_OUT_OF_MEMORY: {
+      std::cerr << "GL_OUT_OF_MEMORY" << std::endl;
+    }
+    case GL_STACK_UNDERFLOW: {
+      std::cerr << "GL_STACK_UNDERFLOW" << std::endl;
+    }
+    case GL_STACK_OVERFLOW: {
+      std::cerr << "GL_STACK_OVERFLOW" << std::endl;
+    }
+    }
+  }
 
 private:
   AppInfo info_;
