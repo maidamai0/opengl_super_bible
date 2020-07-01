@@ -28,11 +28,7 @@ public:
 
 private:
   void render(double current_time) override {
-    const auto r = sin(static_cast<float>(current_time)) / 2 + 0.5f;
-    const auto g = sin(static_cast<float>(current_time) + 1.0f / 3) / 2 + 0.5f;
-    const auto b = sin(static_cast<float>(current_time) + 2.0f / 3) / 2 + 0.5f;
-    const std::array<GLfloat, 4> red{r, g, b, 0.1f};
-    glClearBufferfv(GL_COLOR, 0, red.data());
+    variable_color(current_time);
 
     draw_point();
     check_error();

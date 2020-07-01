@@ -6,7 +6,7 @@
  * @brief   app base class serveed as a framework, implement sb7.h
  * @version 0.1
  * @date 2020-06-27
- * 
+ *
  * @remark follow google style
  *
  * @copyright Copyright (c) 2020
@@ -21,6 +21,7 @@
 #include <iostream>
 #include <string>
 #include <functional>
+#include <array>
 
 class Application {
 public:
@@ -149,9 +150,17 @@ protected:
   virtual void start_up(){};
   virtual void shut_down(){};
 
+  void variable_color(double current_time) {
+    const auto r = sin(static_cast<float>(current_time)) / 2 + 0.5f;
+    const auto g = sin(static_cast<float>(current_time) + 1.0f / 3) / 2 + 0.5f;
+    const auto b = sin(static_cast<float>(current_time) + 2.0f / 3) / 2 + 0.5f;
+    const std::array<GLfloat, 4> color{r, g, b, 0.1f};
+    glClearBufferfv(GL_COLOR, 0, color.data());
+  }
+
   /**
    * @brief check opengl error
-   * 
+   *
    */
   void check_error() {
     const auto error = glGetError();
