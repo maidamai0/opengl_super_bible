@@ -21,8 +21,12 @@
 #include <chrono>
 #include <thread>
 
-class App : public Application {
+class App final: public Application {
 public:
+  App() = default;
+  ~App() = default;
+
+private:
   void render(double current_time) override {
     const auto r = sin(static_cast<float>(current_time)) / 2 + 0.5f;
     const auto g = sin(static_cast<float>(current_time) + 1.0f / 3) / 2 + 0.5f;
@@ -36,7 +40,6 @@ public:
     std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
 
-private:
   void start_up() override {
     shader_program_ = std::make_unique<Shader>(get_full_path("ch02/vert.vert"),
                                                get_full_path("ch02/frag.frag"));

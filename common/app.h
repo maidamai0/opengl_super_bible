@@ -6,6 +6,8 @@
  * @brief   app base class serveed as a framework, implement sb7.h
  * @version 0.1
  * @date 2020-06-27
+ * 
+ * @remark follow google style
  *
  * @copyright Copyright (c) 2020
  *
@@ -45,7 +47,7 @@ public:
   Application() = default;
   virtual ~Application() = default;
 
-  virtual void run() {
+  virtual void Run() {
     if (glfwInit() != GL_TRUE) {
       std::cerr << "initalize glfw failed" << std::endl;
       return;
@@ -115,6 +117,7 @@ public:
     glfwTerminate();
   }
 
+protected:
   void load_settings() {
     info_.title = "OpenGL SuperBible Example";
     info_.windowWidth = 800;
@@ -126,7 +129,6 @@ public:
     info_.flags.cursor = 1;
   }
 
-protected:
   static void on_resize(GLFWwindow *window, int w, int h) {}
 
   static void on_key(GLFWwindow *window, int key, int scancode, int action,
@@ -146,6 +148,11 @@ protected:
   virtual void render(double current_time) {}
   virtual void start_up(){};
   virtual void shut_down(){};
+
+  /**
+   * @brief check opengl error
+   * 
+   */
   void check_error() {
     const auto error = glGetError();
 
