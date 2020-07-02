@@ -10,7 +10,6 @@
 #include "GLFW/glfw3.h"
 // clang-format on
 
-
 #include <cassert>
 #include <fstream>
 #include <iostream>
@@ -100,7 +99,7 @@ private:
     if (succeed == GL_FALSE) {
       GLint max_length = 0;
       glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
-      std::vector<GLchar> error;
+      std::vector<GLchar> error(static_cast<size_t>(max_length), 0);
       glGetProgramInfoLog(program, max_length, &max_length, error.data());
       std::cerr << "Link program error: " << error.data() << std::endl;
       assert(false && "invaid shader program");
