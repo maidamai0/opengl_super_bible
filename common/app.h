@@ -22,6 +22,13 @@
 #include <string>
 #include <functional>
 #include <array>
+#include <thread>
+#include <chrono>
+
+namespace {
+using namespace std::chrono_literals;
+constexpr auto fps_60 = 16ms;
+} // namespace
 
 class Application {
 public:
@@ -84,6 +91,8 @@ public:
       return;
     }
 
+    glEnable(GL_MULTISAMPLE);
+    
     // Define the viewport dimensions
     glViewport(0, 0, info_.windowWidth, info_.windowHeight);
 
@@ -110,6 +119,7 @@ public:
     while (glfwWindowShouldClose(window_) != GL_TRUE) {
       render(glfwGetTime());
 
+      std::this_thread::sleep_for(std::chrono::milliseconds(fps_60));
       glfwSwapBuffers(window_);
       glfwPollEvents();
     }
@@ -127,7 +137,7 @@ protected:
     info_.windowHeight = 600;
     info_.majorVersion = 4;
     info_.minorVersion = 3;
-    info_.samples = 0;
+    info_.samples = 4;
     info_.flags.all = 0;
     info_.flags.cursor = 1;
   }
