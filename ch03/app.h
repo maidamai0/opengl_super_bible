@@ -47,10 +47,11 @@ private:
 
   void draw_triangle(const double current_time) {
     glUseProgram(shader_->Get());
-    std::array<GLfloat, 4> attribute = {static_cast<GLfloat>(sin(current_time)),
-                                        static_cast<GLfloat>(cos(current_time)),
+    std::array<GLfloat, 4> attribute = {static_cast<GLfloat>(sin(current_time)*0.5f),
+                                        static_cast<GLfloat>(cos(current_time)*0.5f),
                                         0.0f, 0.0f};
     glVertexAttrib4fv(0, attribute.data());
+    glVertexAttrib4fv(1, attribute.data());
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
   }
