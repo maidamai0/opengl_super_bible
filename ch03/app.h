@@ -14,7 +14,6 @@
 #include "common/path.h"
 #include "common/shader.h"
 
-
 #include <array>
 #include <cmath>
 #include <memory>
@@ -35,7 +34,12 @@ private:
   void start_up() override {
     shader_ = std::make_unique<Shader>(get_full_path("ch03/vert.vert"),
                                        get_full_path("ch03/frag.frag"));
-    glCreateVertexArrays(1, &vao_);
+
+    if (glCreateVertexArrays) {
+      glCreateVertexArrays(1, &vao_);
+    } else {
+      glGenVertexArrays(1, &vao_);
+    }
     glBindVertexArray(vao_);
   }
 

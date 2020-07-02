@@ -49,6 +49,8 @@ public:
   virtual ~Application() = default;
 
   virtual void Run() {
+
+    glfwSetErrorCallback(&Application::glfw_error_callback);
     if (glfwInit() != GL_TRUE) {
       std::cerr << "initalize glfw failed" << std::endl;
       return;
@@ -124,10 +126,14 @@ protected:
     info_.windowWidth = 800;
     info_.windowHeight = 600;
     info_.majorVersion = 4;
-    info_.minorVersion = 6;
+    info_.minorVersion = 3;
     info_.samples = 0;
     info_.flags.all = 0;
     info_.flags.cursor = 1;
+  }
+
+  static void glfw_error_callback(int error, const char *description) {
+    std::cerr << "GLFW error:" << description << std::endl;
   }
 
   static void on_resize(GLFWwindow *window, int w, int h) {}

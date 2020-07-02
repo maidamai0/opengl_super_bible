@@ -21,7 +21,7 @@
 #include <chrono>
 #include <thread>
 
-class App final: public Application {
+class App final : public Application {
 public:
   App() = default;
   ~App() = default;
@@ -40,7 +40,12 @@ private:
     shader_program_ = std::make_unique<Shader>(get_full_path("ch02/vert.vert"),
                                                get_full_path("ch02/frag.frag"));
 
-    glCreateVertexArrays(1, &vao_);
+    if (glCreateVertexArrays) {
+      glCreateVertexArrays(1, &vao_);
+    } else {
+      glGenVertexArrays(1, &vao_);
+    }
+    check_error();
     glBindVertexArray(vao_);
   }
 
