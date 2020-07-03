@@ -13,7 +13,7 @@
 
 #include "common/app.h"
 #include "common/path.h"
-#include "common/shader.h"
+#include "common/program.h"
 
 #include "cmath"
 #include "memory"
@@ -37,7 +37,7 @@ private:
   }
 
   void start_up() override {
-    shader_program_ = std::make_unique<Shader>(get_full_path("ch02/vert.vert"),
+    shader_program_ = std::make_unique<Program>(get_full_path("ch02/vert.vert"),
                                                get_full_path("ch02/frag.frag"));
 
     if (glCreateVertexArrays) {
@@ -63,6 +63,6 @@ private:
   }
 
 private:
-  std::unique_ptr<Shader> shader_program_;
+  std::unique_ptr<Program> shader_program_;
   GLuint vao_ = 0;
 };

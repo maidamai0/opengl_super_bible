@@ -12,7 +12,7 @@
 
 #include "common/app.h"
 #include "common/path.h"
-#include "common/shader.h"
+#include "common/program.h"
 
 #include <array>
 #include <cmath>
@@ -32,7 +32,7 @@ private:
   }
 
   void start_up() override {
-    shader_ = std::make_unique<Shader>(get_full_path("ch03/vert.vert"),
+    shader_ = std::make_unique<Program>(get_full_path("ch03/vert.vert"),
                                        get_full_path("ch03/frag.frag"));
 
     if (glCreateVertexArrays) {
@@ -57,6 +57,6 @@ private:
   }
 
 private:
-  std::unique_ptr<Shader> shader_;
+  std::unique_ptr<Program> shader_;
   GLuint vao_ = 0;
 };
