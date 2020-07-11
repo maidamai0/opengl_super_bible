@@ -38,12 +38,14 @@ private:
     Shader tesc(get_full_path("ch03/tesselation.tesc"), GL_TESS_CONTROL_SHADER);
     Shader tese(get_full_path("ch03/tesselation.tese"),
                 GL_TESS_EVALUATION_SHADER);
+    Shader gs(get_full_path("ch03/geometry.gs"), GL_GEOMETRY_SHADER);
 
     program_ = std::make_unique<BasicProgram>();
     program_->AddShader(vertex.Get());
     program_->AddShader(tesc.Get());
     program_->AddShader(tese.Get());
     program_->AddShader(frag.Get());
+    program_->AddShader(gs.Get());
     program_->Link();
 
     if (glCreateVertexArrays) {
@@ -52,6 +54,8 @@ private:
       glGenVertexArrays(1, &vao_);
     }
     glBindVertexArray(vao_);
+
+    glPointSize(5);
   }
 
   void shut_down() override { glDeleteVertexArrays(1, &vao_); }
@@ -63,7 +67,7 @@ private:
     glVertexAttrib4fv(1, attribute.data());
 
     // glPatchParameteri(GL_PATCH_VERTICES, 3);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawArrays(GL_PATCHES, 0, 3);
     check_error();
   }
