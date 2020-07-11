@@ -24,6 +24,7 @@
 #include <array>
 #include <thread>
 #include <chrono>
+#include <cassert>
 
 namespace {
 using namespace std::chrono_literals;
@@ -183,30 +184,32 @@ protected:
 
     switch (error) {
     case GL_NO_ERROR: {
-      break;
+      return;
     }
     case GL_INVALID_ENUM: {
-      std::cerr << "GL_INVALID_ENUM" << std::endl;
+      std::cerr << GL_INVALID_ENUM << ": GL_INVALID_ENUM" << std::endl;
     }
     case GL_INVALID_VALUE: {
-      std::cerr << "GL_INVALID_VALUE" << std::endl;
+      std::cerr << GL_INVALID_VALUE << ": GL_INVALID_VALUE" << std::endl;
     }
     case GL_INVALID_OPERATION: {
-      std::cerr << "GL_INVALID_OPERATION" << std::endl;
+      std::cerr << GL_INVALID_OPERATION << ": GL_INVALID_OPERATION" << std::endl;
     }
     case GL_INVALID_FRAMEBUFFER_OPERATION: {
-      std::cerr << "GL_INVALID_FRAMEBUFFER_OPERATION" << std::endl;
+      std::cerr << GL_INVALID_FRAMEBUFFER_OPERATION << ": GL_INVALID_FRAMEBUFFER_OPERATION" << std::endl;
     }
     case GL_OUT_OF_MEMORY: {
-      std::cerr << "GL_OUT_OF_MEMORY" << std::endl;
+      std::cerr << GL_OUT_OF_MEMORY << ": GL_OUT_OF_MEMORY" << std::endl;
     }
     case GL_STACK_UNDERFLOW: {
-      std::cerr << "GL_STACK_UNDERFLOW" << std::endl;
+      std::cerr << GL_STACK_UNDERFLOW << ": GL_STACK_UNDERFLOW" << std::endl;
     }
     case GL_STACK_OVERFLOW: {
-      std::cerr << "GL_STACK_OVERFLOW" << std::endl;
+      std::cerr << GL_STACK_OVERFLOW << ": GL_STACK_OVERFLOW" << std::endl;
     }
     }
+
+    assert(false && "OpenGL error");
   }
 
 private:
