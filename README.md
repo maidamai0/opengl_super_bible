@@ -12,8 +12,8 @@
 
 * [fmtlib](https://github.com/fmtlib/fmt)
 
-  Replace std::cout,std::cerr, printf,sprintf... 
+  Replace std::cout,std::cerr, printf,sprintf... You must install by yourself.Install with vcpkg is recommended on windows.
 
 ## Code style
 
-All code is formated by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) with default google style.You must install by yourself.Install with vcpkg is recommended on windows.
+All code is formated by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) with default google style.
