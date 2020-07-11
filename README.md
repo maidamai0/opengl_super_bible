@@ -16,4 +16,4 @@
 
 ## Code style
 
-All code is formated by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) with default google style.
+All code is formated by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) with default google style.You must install by yourself.Install with vcpkg is recommended on windows.
