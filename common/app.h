@@ -14,9 +14,12 @@
  */
 
 // clang-format off
+#include "fmt/core.h"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 // clang-format on
+
+#include "fmt/format.h"
 
 #include <iostream>
 #include <string>
@@ -60,7 +63,7 @@ public:
 
     glfwSetErrorCallback(&Application::glfw_error_callback);
     if (glfwInit() != GL_TRUE) {
-      std::cerr << "initalize glfw failed" << std::endl;
+      fmt::print("initalize glfw failed\n");
       return;
     }
 
@@ -81,19 +84,19 @@ public:
         info_.windowWidth, info_.windowHeight, info_.title.c_str(),
         info_.flags.fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
     if (!window_) {
-      std::cerr << "Create window error" << std::endl;
+      fmt::print("Create window error\n");
       return;
     }
 
     glfwMakeContextCurrent(window_);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-      std::cerr << "Failed to initialize OpenGL context" << std::endl;
+      fmt::print("Failed to initialize OpenGL context\n");
       return;
     }
 
     glEnable(GL_MULTISAMPLE);
-    
+
     // Define the viewport dimensions
     glViewport(0, 0, info_.windowWidth, info_.windowHeight);
 
@@ -105,10 +108,8 @@ public:
     if (!info_.flags.cursor) {
       glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
     }
-
-    std::cout << "OpenGL: " << glGetString(GL_VENDOR) << " "
-              << glGetString(GL_VERSION) << " " << glGetString(GL_RENDERER)
-              << std::endl;
+    fmt::print("OPenGL:{} {} {}\n", glGetString(GL_VENDOR),
+               glGetString(GL_VERSION), glGetString(GL_RENDERER));
 
     if (info_.flags.debug) {
       //   glDebugMessageCallback((GLDEBUGPROC)debug_callback, this);
@@ -144,7 +145,7 @@ protected:
   }
 
   static void glfw_error_callback(int error, const char *description) {
-    std::cerr << "GLFW error:" << description << std::endl;
+    fmt::print("GLFW error: {}\n", description);
   }
 
   static void on_resize(GLFWwindow *window, int w, int h) {}
@@ -187,25 +188,26 @@ protected:
       return;
     }
     case GL_INVALID_ENUM: {
-      std::cerr << GL_INVALID_ENUM << ": GL_INVALID_ENUM" << std::endl;
+      fmt::print(stderr, "{}:GL_INVALID_ENUM\n", GL_INVALID_ENUM);
     }
     case GL_INVALID_VALUE: {
-      std::cerr << GL_INVALID_VALUE << ": GL_INVALID_VALUE" << std::endl;
+      fmt::print(stderr, "{}:GL_INVALID_VALUE\n", GL_INVALID_VALUE);
     }
     case GL_INVALID_OPERATION: {
-      std::cerr << GL_INVALID_OPERATION << ": GL_INVALID_OPERATION" << std::endl;
+      fmt::print(stderr, "{}:GL_INVALID_OPERATION\n", GL_INVALID_OPERATION);
     }
     case GL_INVALID_FRAMEBUFFER_OPERATION: {
-      std::cerr << GL_INVALID_FRAMEBUFFER_OPERATION << ": GL_INVALID_FRAMEBUFFER_OPERATION" << std::endl;
+      fmt::print(stderr, "{}:GL_INVALID_FRAMEBUFFER_OPERATION\n",
+                 GL_INVALID_FRAMEBUFFER_OPERATION);
     }
     case GL_OUT_OF_MEMORY: {
-      std::cerr << GL_OUT_OF_MEMORY << ": GL_OUT_OF_MEMORY" << std::endl;
+      fmt::print(stderr, "{}:GL_OUT_OF_MEMORY\n", GL_OUT_OF_MEMORY);
     }
     case GL_STACK_UNDERFLOW: {
-      std::cerr << GL_STACK_UNDERFLOW << ": GL_STACK_UNDERFLOW" << std::endl;
+      fmt::print(stderr, "{}:GL_STACK_UNDERFLOW\n", GL_STACK_UNDERFLOW);
     }
     case GL_STACK_OVERFLOW: {
-      std::cerr << GL_STACK_OVERFLOW << ": GL_STACK_OVERFLOW" << std::endl;
+      fmt::print(stderr, "{}:GL_STACK_OVERFLOW\n", GL_STACK_OVERFLOW);
     }
     }
 

@@ -6,12 +6,13 @@
  * @brief  basic shader program
  * @version 0.1
  * @date 2020-07-03
- * 
+ *
  * @copyright Copyright (c) 2020
- * 
+ *
  */
 
 // clang-format off
+#include "fmt/core.h"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 // clang-format on
@@ -33,8 +34,8 @@ public:
   GLuint Get() const { return program_; }
   void Link() {
     glLinkProgram(program_);
-    for(const auto shader : shaders_) {
-        glDeleteShader(shader);
+    for (const auto shader : shaders_) {
+      glDeleteShader(shader);
     }
 
     if (!check_program(program_)) {
@@ -51,7 +52,7 @@ protected:
       glGetProgramiv(program, GL_INFO_LOG_LENGTH, &max_length);
       std::vector<GLchar> error(static_cast<size_t>(max_length), 0);
       glGetProgramInfoLog(program, max_length, &max_length, error.data());
-      std::cerr << "Link program error: " << error.data() << std::endl;
+      fmt::print(stderr, "Link program error: {}\n", error.data());
       assert(false && "invaid shader program");
       glDeleteProgram(program_);
       return false;

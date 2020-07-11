@@ -12,6 +12,7 @@
  */
 
 // clang-format off
+#include "fmt/core.h"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 // clang-format on
@@ -65,8 +66,7 @@ private:
       glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &max_length);
       std::vector<GLchar> error(max_length);
       glGetShaderInfoLog(shader, max_length, &max_length, error.data());
-
-      std::cerr << "Compile shader error: " << error.data();
+      fmt::print(stderr, "Compile shader error: {}\n", error.data());
       assert(false && "invalid shader");
 
       glDeleteShader(shader);
