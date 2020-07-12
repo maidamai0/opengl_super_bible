@@ -8,11 +8,19 @@
 
 * [glfw](https://www.glfw.org/)
 
-  Create windows, install by yourself.Install with vcpkg is recommended on windows.
+  Create windows, install by yourself.Install with [vcpkg](https://github.com/microsoft/vcpkg) is recommended on windows:
+
+  ```batch
+  vcpkg install glfw3
+  ```
 
 * [fmtlib](https://github.com/fmtlib/fmt)
 
-  Replace std::cout,std::cerr, printf,sprintf... You must install by yourself.Install with vcpkg is recommended on windows.
+  Replace std::cout,std::cerr, printf,sprintf... You must install it by yourself.Install with [vcpkg](https://github.com/microsoft/vcpkg) is recommended on windows:
+
+  ```batch
+  vcpkg install fmt
+  ```
 
 ## Code style
 
