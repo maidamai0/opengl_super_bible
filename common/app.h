@@ -112,8 +112,8 @@ public:
                glGetString(GL_VERSION), glGetString(GL_RENDERER));
 
     if (info_.flags.debug) {
-      //   glDebugMessageCallback((GLDEBUGPROC)debug_callback, this);
       glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+      glDebugMessageCallback((GLDEBUGPROC)debug_callback, this);
     }
 
     start_up();
@@ -142,6 +142,7 @@ protected:
     info_.samples = 4;
     info_.flags.all = 0;
     info_.flags.cursor = 1;
+    info_.flags.debug = 1;
   }
 
   static void glfw_error_callback(int error, const char *description) {
@@ -162,7 +163,99 @@ protected:
                              double yoffset) {}
   static void debug_callback(GLenum source, GLenum type, GLuint id,
                              GLenum severity, GLsizei length,
-                             const GLchar *message, GLvoid *userParam){};
+                             const GLchar *message, GLvoid *userParam) {
+    std::string source_str;
+    switch (source) {
+    case GL_DEBUG_SOURCE_API:
+      source_str = "API";
+      break;
+
+    case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
+      source_str = "WINDOW SYSTEM";
+      break;
+
+    case GL_DEBUG_SOURCE_SHADER_COMPILER:
+      source_str = "SHADER COMPILER";
+      break;
+
+    case GL_DEBUG_SOURCE_THIRD_PARTY:
+      source_str = "THIRD PARTY";
+      break;
+
+    case GL_DEBUG_SOURCE_APPLICATION:
+      source_str = "APPLICATION";
+      break;
+
+    case GL_DEBUG_SOURCE_OTHER:
+      source_str = "UNKNOWN";
+      break;
+
+    default:
+      source_str = "UNKNOWN";
+      break;
+    }
+
+    std::string type_str;
+    switch (type) {
+    case GL_DEBUG_TYPE_ERROR:
+      type_str = "ERROR";
+      break;
+
+    case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
+      type_str = "DEPRECATED BEHAVIOR";
+      break;
+
+    case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
+      type_str = "UDEFINED BEHAVIOR";
+      break;
+
+    case GL_DEBUG_TYPE_PORTABILITY:
+      type_str = "PORTABILITY";
+      break;
+
+    case GL_DEBUG_TYPE_PERFORMANCE:
+      type_str = "PERFORMANCE";
+      break;
+
+    case GL_DEBUG_TYPE_OTHER:
+      type_str = "OTHER";
+      break;
+
+    case GL_DEBUG_TYPE_MARKER:
+      type_str = "MARKER";
+      break;
+
+    default:
+      type_str = "UNKNOWN";
+      break;
+    }
+
+    std::string severity_str;
+    switch (severity) {
+    case GL_DEBUG_SEVERITY_HIGH:
+      severity_str = "HIGH";
+      break;
+
+    case GL_DEBUG_SEVERITY_MEDIUM:
+      severity_str = "MEDIUM";
+      break;
+
+    case GL_DEBUG_SEVERITY_LOW:
+      severity_str = "LOW";
+      break;
+
+    case GL_DEBUG_SEVERITY_NOTIFICATION:
+      severity_str = "NOTIFICATION";
+      break;
+
+    default:
+      severity_str = "UNKNOWN";
+      break;
+    }
+
+    fmt::print("{}:{} {}, raised from {},{}\n", id, type_str, severity_str,
+               source_str, message);
+  };
 
   virtual void render(double current_time) {}
   virtual void start_up(){};
@@ -211,7 +304,7 @@ protected:
     }
     }
 
-    assert(false && "OpenGL error");
+    // assert(false && "OpenGL error");
   }
 
 private:
