@@ -42,10 +42,10 @@ private:
 
     program_ = std::make_unique<BasicProgram>();
     program_->AddShader(vertex.Get());
-    program_->AddShader(tesc.Get());
-    program_->AddShader(tese.Get());
+    // program_->AddShader(tesc.Get());
+    // program_->AddShader(tese.Get());
+    // program_->AddShader(gs.Get());
     program_->AddShader(frag.Get());
-    program_->AddShader(gs.Get());
     program_->Link();
 
     if (glCreateVertexArrays) {
@@ -68,7 +68,7 @@ private:
 
     // glPatchParameteri(GL_PATCH_VERTICES, 3);
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glDrawArrays(GL_PATCHES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     check_error();
   }
 
