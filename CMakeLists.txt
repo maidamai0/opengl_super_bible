@@ -3,6 +3,7 @@ get_filename_component(PROJECT CMAKE_CURRENT_SOURCE_DIR NAME)
 project(${PROJECT})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD 20)
 
 # glad
 add_subdirectory(deps)
