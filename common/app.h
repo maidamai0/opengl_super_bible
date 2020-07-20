@@ -257,9 +257,15 @@ protected:
                source_str, message);
   };
 
-  virtual void render(double current_time) {}
-  virtual void start_up(){};
-  virtual void shut_down(){};
+  virtual void render(double current_time) {
+    fmt::print(stderr, "{} not implemented\n", __FUNCTION__);
+  }
+  virtual void start_up() {
+    fmt::print(stderr, "{} not implemented\n", __FUNCTION__);
+  };
+  virtual void shut_down() {
+    fmt::print(stderr, "{} not implemented\n", __FUNCTION__);
+  };
 
   void variable_color(double current_time) {
     const auto r = sin(static_cast<float>(current_time)) / 2 + 0.5f;
