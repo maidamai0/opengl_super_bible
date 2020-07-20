@@ -24,3 +24,4 @@ add_compile_definitions(ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}/")
 
 add_subdirectory(ch02)
 add_subdirectory(ch03)
+add_subdirectory(ch05)
