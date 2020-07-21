@@ -15,7 +15,10 @@ find_package(glfw3 CONFIG REQUIRED)
 # fmtlib
 find_package(fmt CONFIG REQUIRED)
 
-link_libraries(glfw glad fmt::fmt-header-only)
+# glm
+find_package(glm CONFIG REQUIRED)
+
+link_libraries(glfw glad fmt::fmt-header-only glm)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 

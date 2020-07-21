@@ -22,6 +22,14 @@
   vcpkg install fmt
   ```
 
+* [glm](https://glm.g-truc.net/0.9.9/index.html)
+
+  Opengl math library.You must install it by yourself.Install with [vcpkg](https://github.com/microsoft/vcpkg) is recommended on windows:
+
+  ```batch
+  vcpkg install glm
+  ```
+
 ## Code style
 
 All code is formated by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) with default google style.
