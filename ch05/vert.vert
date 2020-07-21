@@ -1,7 +1,8 @@
 #version 430 core
 
-layout(location = 0) in vec4 vertices;
+layout(location = 0) in vec4 position;
+layout(location = 1) in vec4 color;
 
 void main () {
-    gl_Position = vec4(vertices[gl_VertexID]);
+    gl_Position = position;
 }
