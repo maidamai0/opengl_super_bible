@@ -33,3 +33,9 @@
 ## Code style
 
 All code is formated by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) with default google style.
+
+## Documentation
+
+See [documentaion](./doc) for detail.
+
+Some [PlantUML](https://plantuml.com/) code is used in documentation and github markdown does't suport it for now. So, I recommend to render these markdow files by yourself with a editor support plantuml embedd with plantuml. VScode with a plantuml extesnion is a good choice.
