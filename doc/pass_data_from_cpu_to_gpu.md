@@ -5,6 +5,17 @@ Two data storage are used in OpenGL.
 * Buffer
 * Texture
 
+## Vertex Array Buffer(VAO)
+
+A VAO is needed
+
+```plantuml
+CPU -> OpenGL:glCreateVertexArrays
+OpenGL -> CPU:OK
+CPU -> OpenGL:glBindVertexArray
+OpenGL -> CPU:OK
+```
+
 ## Buffer
 
 ## Get data to buffer
@@ -52,5 +63,22 @@ OpenGL -> CPU:OK
 ```
 
 ### Get data to vertex attributes from buffer
+
+You can put all attributes to one vertex buffer or put one attribute to one buffer.
+
+```plantuml
+== attribute <--> binding index==
+CPU -> OpenGL:glVertexArrayAttribBinding
+OpenGL -> CPU:OK
+== binding index <--> Buffer==
+CPU -> OpenGL:glVertexArrayVertexBuffer
+OpenGL -> CPU:OK
+== Set vertex attribute format==
+CPU -> OpenGL:glVertexArrayAttribFormat
+OpenGL -> CPU:OK
+== Enable vertex attribute==
+CPU -> OpenGL:glEnableVertexAttribArray
+OpenGL -> CPU:OK
+```
 
 ### get data to uniform from buffer
