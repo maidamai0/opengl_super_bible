@@ -20,8 +20,11 @@
 // clang-format on
 
 #include "fmt/format.h"
+#include "common/utility.h"
 
+#include <cstdio>
 #include <iostream>
+#include <ostream>
 #include <string>
 #include <functional>
 #include <array>
@@ -63,7 +66,7 @@ public:
 
     glfwSetErrorCallback(&Application::glfw_error_callback);
     if (glfwInit() != GL_TRUE) {
-      fmt::print("initalize glfw failed\n");
+      println("initalize glfw failed");
       return;
     }
 
@@ -84,14 +87,14 @@ public:
         info_.windowWidth, info_.windowHeight, info_.title.c_str(),
         info_.flags.fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL);
     if (!window_) {
-      fmt::print("Create window error\n");
+      println("Create window error");
       return;
     }
 
     glfwMakeContextCurrent(window_);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-      fmt::print("Failed to initialize OpenGL context\n");
+      println("Failed to initialize OpenGL context");
       return;
     }
 
@@ -108,8 +111,8 @@ public:
     if (!info_.flags.cursor) {
       glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
     }
-    fmt::print("OPenGL:{} {} {}\n", glGetString(GL_VENDOR),
-               glGetString(GL_VERSION), glGetString(GL_RENDERER));
+    println("OPenGL:{} {} {}", glGetString(GL_VENDOR), glGetString(GL_VERSION),
+            glGetString(GL_RENDERER));
 
     if (info_.flags.debug) {
       glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -138,7 +141,7 @@ protected:
     info_.windowWidth = 800;
     info_.windowHeight = 600;
     info_.majorVersion = 4;
-    info_.minorVersion = 3;
+    info_.minorVersion = 5;
     info_.samples = 4;
     info_.flags.all = 0;
     info_.flags.cursor = 1;
@@ -146,7 +149,7 @@ protected:
   }
 
   static void glfw_error_callback(int error, const char *description) {
-    fmt::print("GLFW error: {}\n", description);
+    println("GLFW error: {}", description);
   }
 
   static void on_resize(GLFWwindow *window, int w, int h) {}
@@ -253,18 +256,18 @@ protected:
       break;
     }
 
-    fmt::print("{}:{} {}, raised from {},{}\n", id, type_str, severity_str,
-               source_str, message);
+    println("{}:{} {}, raised from {},{}", id, type_str, severity_str,
+            source_str, message);
   };
 
   virtual void render(double current_time) {
-    fmt::print(stderr, "{} not implemented\n", __FUNCTION__);
+    println_error("{} not implemented", __FUNCTION__);
   }
   virtual void start_up() {
-    fmt::print(stderr, "{} not implemented\n", __FUNCTION__);
+    println_error("{} not implemented", __FUNCTION__);
   };
   virtual void shut_down() {
-    fmt::print(stderr, "{} not implemented\n", __FUNCTION__);
+    println_error("{} not implemented", __FUNCTION__);
   };
 
   void variable_color(double current_time) {
@@ -287,26 +290,26 @@ protected:
       return;
     }
     case GL_INVALID_ENUM: {
-      fmt::print(stderr, "{}:GL_INVALID_ENUM\n", GL_INVALID_ENUM);
+      println_error("{}:GL_INVALID_ENUM", GL_INVALID_ENUM);
     }
     case GL_INVALID_VALUE: {
-      fmt::print(stderr, "{}:GL_INVALID_VALUE\n", GL_INVALID_VALUE);
+      println_error("{}:GL_INVALID_VALUE", GL_INVALID_VALUE);
     }
     case GL_INVALID_OPERATION: {
-      fmt::print(stderr, "{}:GL_INVALID_OPERATION\n", GL_INVALID_OPERATION);
+      println_error("{}:GL_INVALID_OPERATION", GL_INVALID_OPERATION);
     }
     case GL_INVALID_FRAMEBUFFER_OPERATION: {
-      fmt::print(stderr, "{}:GL_INVALID_FRAMEBUFFER_OPERATION\n",
+      println_error("{}:GL_INVALID_FRAMEBUFFER_OPERATION",
                  GL_INVALID_FRAMEBUFFER_OPERATION);
     }
     case GL_OUT_OF_MEMORY: {
-      fmt::print(stderr, "{}:GL_OUT_OF_MEMORY\n", GL_OUT_OF_MEMORY);
+      println_error("{}:GL_OUT_OF_MEMORY", GL_OUT_OF_MEMORY);
     }
     case GL_STACK_UNDERFLOW: {
-      fmt::print(stderr, "{}:GL_STACK_UNDERFLOW\n", GL_STACK_UNDERFLOW);
+      println_error("{}:GL_STACK_UNDERFLOW", GL_STACK_UNDERFLOW);
     }
     case GL_STACK_OVERFLOW: {
-      fmt::print(stderr, "{}:GL_STACK_OVERFLOW\n", GL_STACK_OVERFLOW);
+      println_error("{}:GL_STACK_OVERFLOW", GL_STACK_OVERFLOW);
     }
     }
 
