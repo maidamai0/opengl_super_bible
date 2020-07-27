@@ -27,5 +27,13 @@ template <typename T> constexpr void unused(T &&) {}
 template <typename S, typename... Args, typename Char = fmt::char_t<S>>
 inline void println(const S &format_str, Args &&... args) {
   fmt::print(format_str, args...);
+  fmt::print("\n");
+  std::fflush(stdout);
+}
+
+template <typename S, typename... Args, typename Char = fmt::char_t<S>>
+inline void println_error(const S &format_str, Args &&... args) {
+  fmt::print(stderr,format_str, args...);
+  fmt::print("\n");
   std::fflush(stdout);
 }
