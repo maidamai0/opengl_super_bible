@@ -32,11 +32,6 @@
 #include <chrono>
 #include <cassert>
 
-namespace {
-using namespace std::chrono_literals;
-constexpr auto fps_60 = 16ms;
-} // namespace
-
 class Application {
 public:
   struct AppInfo {
@@ -119,12 +114,11 @@ public:
       glDebugMessageCallback((GLDEBUGPROC)debug_callback, this);
     }
 
+    glfwSwapInterval(1);
     start_up();
 
     while (glfwWindowShouldClose(window_) != GL_TRUE) {
       render(glfwGetTime());
-
-      std::this_thread::sleep_for(std::chrono::milliseconds(fps_60));
       glfwSwapBuffers(window_);
       glfwPollEvents();
     }
@@ -300,7 +294,7 @@ protected:
     }
     case GL_INVALID_FRAMEBUFFER_OPERATION: {
       println_error("{}:GL_INVALID_FRAMEBUFFER_OPERATION",
-                 GL_INVALID_FRAMEBUFFER_OPERATION);
+                    GL_INVALID_FRAMEBUFFER_OPERATION);
     }
     case GL_OUT_OF_MEMORY: {
       println_error("{}:GL_OUT_OF_MEMORY", GL_OUT_OF_MEMORY);
