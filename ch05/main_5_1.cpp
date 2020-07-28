@@ -12,7 +12,7 @@
 static const std::array<GLfloat, 12> position = {
     0.25, -0.25, 0.5, 1.0, -0.25, -0.25, 0.5, 1.0, 0.25, 0.25, 0.5, 1.0};
 static const std::array<GLfloat, 12> color = {
-    0.25, -0.25, 0.5, 1.0, -0.25, -0.25, 0.5, 1.0, 0.25, 0.25, 0.5, 1.0};
+    0.25, 0.25, 0.5, 1.0, 0.25, 0.25, 0.5, 1.0, 0.25, 0.25, 0.5, 1.0};
 
 class Ch501 : public Application {
 private:
@@ -37,12 +37,12 @@ private:
     // setup vertex attribute
     glVertexArrayVertexBuffer(vao_, 0, vbo[0], 0, sizeof(glm::vec4));
     glVertexArrayAttribFormat(vao_, 0, 4, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_, 0, 0);
+    // glVertexArrayAttribBinding(vao_, 0, 0);
     glEnableVertexAttribArray(0);
 
     glVertexArrayVertexBuffer(vao_, 1, vbo[1], 0, sizeof(glm::vec4));
     glVertexArrayAttribFormat(vao_, 1, 4, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao_, 1, 1);
+    // glVertexArrayAttribBinding(vao_, 1, 1);
     glEnableVertexAttribArray(1);
 
     shader_program_ = std::make_unique<Program>(
