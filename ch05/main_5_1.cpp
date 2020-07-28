@@ -21,28 +21,17 @@ private:
     glCreateBuffers(2, &vbo[0]);
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 
-    const auto copy_with_map = [&](GLuint buffer, ) {
-      auto *ptr = glMapNamedBuffer(vbo[0], GL_WRITE_ONLY);
-      memcpy(ptr, position.data(), position.size());
-      glUnmapNamedBuffer(vbo[0]);
-    };
-
-    const auto copy_directly = [&]() {
-      glNamedBufferStorage(vbo[0], position.size(), position.data(),
-                           GL_DYNAMIC_STORAGE_BIT);
-    };
-
     // initialize buffer
-    glNamedBufferStorage(vbo[0], position.size(), position.data(),
+    glNamedBufferStorage(vbo[0], position.size() * sizeof(float),
+                         position.data(), GL_DYNAMIC_STORAGE_BIT);
+    glNamedBufferStorage(vbo[1], color.size() * sizeof(float), color.data(),
                          GL_DYNAMIC_STORAGE_BIT);
-    glNamedBufferStorage(vbo[1], color.size(), color.data(),
-                         GL_DYNAMIC_STORAGE_BIT);
-
-    unused(copy_with_map);
-    unused(copy_directly);
-
     // create and bind a vao
-    glCreateVertexArrays(1, &vao_);
+    if (glCreateVertexArrays) {
+      glCreateVertexArrays(1, &vao_);
+    } else {
+      glGenVertexArrays(1, &vao_);
+    }
     glBindVertexArray(vao_);
 
     // setup vertex attribute
@@ -51,17 +40,17 @@ private:
     glVertexArrayAttribBinding(vao_, 0, 0);
     glEnableVertexAttribArray(0);
 
-    glVertexArrayVertexBuffer(vao_, 0, vbo[1], 0, sizeof(glm::vec3));
-    glVertexArrayAttribFormat(vao_, 1, 3, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayVertexBuffer(vao_, 1, vbo[1], 0, sizeof(glm::vec4));
+    glVertexArrayAttribFormat(vao_, 1, 4, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(vao_, 1, 1);
     glEnableVertexAttribArray(1);
 
     shader_program_ = std::make_unique<Program>(
-        get_full_path("ch05/vert.vetx"), get_full_path("ch05/frag.grag"));
+        get_full_path("ch05/vert.vert"), get_full_path("ch05/frag.frag"));
   }
 
   void render(double current_time) override { draw_triangle(); }
-  void shut_down() override { glDeleteVertexArrays(vao_); }
+  void shut_down() override { glDeleteVertexArrays(1, &vao_); }
 
   void draw_triangle() {
     glUseProgram(shader_program_->Get());
