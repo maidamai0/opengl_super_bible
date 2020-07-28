@@ -22,9 +22,9 @@ private:
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 
     // initialize buffer
-    glNamedBufferStorage(vbo[0], position.size() * sizeof(float),
-                         position.data(), GL_DYNAMIC_STORAGE_BIT);
-    glNamedBufferStorage(vbo[1], color.size() * sizeof(float), color.data(),
+    glNamedBufferStorage(vbo[0], byte_size(position), position.data(),
+                         GL_DYNAMIC_STORAGE_BIT);
+    glNamedBufferStorage(vbo[1], byte_size(color), color.data(),
                          GL_DYNAMIC_STORAGE_BIT);
     // create and bind a vao
     if (glCreateVertexArrays) {

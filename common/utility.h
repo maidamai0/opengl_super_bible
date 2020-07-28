@@ -12,6 +12,7 @@
  */
 
 #include "fmt/format.h"
+#include <vcruntime.h>
 
 template <typename T> constexpr void unused(T &&) {}
 
@@ -33,7 +34,19 @@ inline void println(const S &format_str, Args &&... args) {
 
 template <typename S, typename... Args, typename Char = fmt::char_t<S>>
 inline void println_error(const S &format_str, Args &&... args) {
-  fmt::print(stderr,format_str, args...);
+  fmt::print(stderr, format_str, args...);
   fmt::print("\n");
   std::fflush(stdout);
+}
+
+/**
+ * @brief get byte size of std::array
+ *
+ * @tparam T      value type of array
+ * @tparam N      size of array
+ * @param arr     array
+ * @return auto   byte size
+ */
+template <typename T, size_t N> auto byte_size(std::array<T, N> arr) {
+  return sizeof(T) * arr.size();
 }
