@@ -12,6 +12,7 @@
  */
 
 #include "fmt/format.h"
+#include <ostream>
 #include <vcruntime.h>
 
 template <typename T> constexpr void unused(T &&) {}
@@ -49,4 +50,22 @@ inline void println_error(const S &format_str, Args &&... args) {
  */
 template <typename T, size_t N> auto byte_size(std::array<T, N> arr) {
   return sizeof(T) * arr.size();
+}
+
+/**
+ * @brief << operator for std::array
+ *
+ * @tparam T
+ * @tparam N
+ * @param os
+ * @param arr
+ * @return std::ostream&
+ */
+template <typename T, size_t N>
+std::ostream &operator<<(std::ostream &os, std::array<T, N> arr) {
+  for (const auto &e : arr) {
+    os << e << " ";
+  }
+  os << std::endl;
+  return os;
 }
