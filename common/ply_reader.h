@@ -35,6 +35,8 @@ public:
     return ret;
   }
 
+  size_t GetVerticesByteSize() const { return vertices_->buffer.size_bytes(); }
+
 private:
   void read_ply_file(const std::string &file_path) {
     std::ifstream file_stream(file_path, std::ios::binary);
