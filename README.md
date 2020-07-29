@@ -30,6 +30,20 @@
   vcpkg install glm
   ```
 
+* [tinyply](https://glm.g-truc.net/0.9.9/index.html)
+
+  PLY file reader.Install with [vcpkg](https://github.com/microsoft/vcpkg) is recommended on windows:
+
+  ```batch
+  vcpkg install tinyply
+  ```
+
+* install all dependencies with [vcpkg](https://github.com/microsoft/vcpkg)
+  
+  ```batch
+  vcpkg install glfw3 fmt glm tinyply
+  ```
+
 ## Code style
 
 All code is formated by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) with default google style.
