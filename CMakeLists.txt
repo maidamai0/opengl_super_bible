@@ -18,7 +18,10 @@ find_package(fmt CONFIG REQUIRED)
 # glm
 find_package(glm CONFIG REQUIRED)
 
-link_libraries(glfw glad fmt::fmt-header-only glm)
+# tinyply
+find_package(tinyply CONFIG REQUIRED)
+
+link_libraries(glfw glad fmt::fmt-header-only glm tinyply)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
