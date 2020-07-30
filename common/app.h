@@ -57,7 +57,7 @@ public:
   Application() = default;
   virtual ~Application() = default;
 
-  virtual void Run() {
+  void Run() {
 
     glfwSetErrorCallback(&Application::glfw_error_callback);
     if (glfwInit() != GL_TRUE) {
