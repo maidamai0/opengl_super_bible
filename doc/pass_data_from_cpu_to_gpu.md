@@ -82,3 +82,37 @@ OpenGL -> CPU:OK
 ```
 
 ### get data to uniform from buffer
+
+Vertex attribute is per-vertex but uniform is for all vertex.
+
+* Default block uniforms
+* Uniform block uniforms, recommend
+* Declared in shaders
+* Declared in different shaders with the same name will have the same value
+* Can not modified in shader code
+* Can be given a location
+* Unused uniform may be optimized away by compiler
+
+Default block uniform
+
+```plantuml
+note right CPU:Default block Uniform
+CPU -> OpenGL:glUniform*,scalar,vector,matrix
+OpenGL -> GPU:update value of uniform
+OpenGL -> CPU:OK
+```
+
+Uniform block uniform
+
+* standard layout, recommend this.
+* shared layout, very compltex, don't do this
+
+```plantuml
+note right CPU:Uniform block Uniform
+CPU -> OpenGL:glGetUniformBlockIndex
+OpenGL -> CPU: uniform block index
+CPU -> OpenGL:glUniformBlockBinding
+OpenGL -> CPU: OK
+CPU -> OpenGL:glBindBufferBase
+OpenGL -> CPU: OK
+```
