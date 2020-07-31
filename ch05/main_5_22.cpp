@@ -34,8 +34,7 @@ protected:
     glNamedBufferStorage(vbo_, byte_size(position), position.data(),
                          GL_DYNAMIC_STORAGE_BIT);
     glVertexArrayVertexBuffer(vao_, 0, vbo_, 0, sizeof(glm::vec4));
-    glVertexArrayAttribFormat(vao_, 0, sizeof(glm::vec4), GL_FLOAT, GL_FALSE,
-                              0);
+    glVertexArrayAttribFormat(vao_, 0, 4, GL_FLOAT, GL_TRUE, 0);
     glEnableVertexArrayAttrib(vao_, 0);
   }
   void shut_down() override {
