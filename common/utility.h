@@ -15,6 +15,8 @@
 #include <ostream>
 #include <vcruntime.h>
 
+constexpr auto math_pi = 3.1415926;
+
 template <typename T> constexpr void unused(T &&) {}
 
 /**
