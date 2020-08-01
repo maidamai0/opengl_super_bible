@@ -21,6 +21,10 @@
 
 #include "fmt/format.h"
 #include "common/utility.h"
+#include "glm/ext/matrix_clip_space.hpp"
+#include "glm/fwd.hpp"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <cstdio>
 #include <iostream>
@@ -146,7 +150,12 @@ protected:
     println("GLFW error: {}", description);
   }
 
-  static void on_resize(GLFWwindow *window, int w, int h) {}
+  static void on_resize(GLFWwindow *window, int w, int h) {
+    const auto aspect = static_cast<float>(w) / h;
+    auto &perspective = get_perspective();
+    // perspective = glm::perspective(50.0f, aspect, 0.1f, 100.0f);
+    glViewport(0, 0, w, h);
+  }
 
   static void on_key(GLFWwindow *window, int key, int scancode, int action,
                      int mods) {}
@@ -310,6 +319,12 @@ protected:
     // assert(false && "OpenGL error");
   }
 
+  static glm::mat4 &get_perspective() {
+    static glm::mat4 perspective(1.0f);
+    return perspective;
+  }
+
+protected:
 private:
   AppInfo info_;
   GLFWwindow *window_ = nullptr;
