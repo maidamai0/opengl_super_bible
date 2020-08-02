@@ -67,7 +67,7 @@ private:
   }
 
   auto calculate_projection_matrix() -> void {
-    const float time = glfwGetTime() * math_pi * 0.001;
+    const float time = glfwGetTime() * math_pi * 0.0001;
     model_view_ =
         glm::rotate(model_view_, time * 81.0f, glm::vec3(1.0, 0.0, 0.0));
     model_view_ =

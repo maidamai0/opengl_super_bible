@@ -153,7 +153,7 @@ protected:
   static void on_resize(GLFWwindow *window, int w, int h) {
     const auto aspect = static_cast<float>(w) / h;
     auto &perspective = get_perspective();
-    // perspective = glm::perspective(50.0f, aspect, 0.1f, 100.0f);
+    perspective = glm::perspective(50.0f, aspect, 0.1f, 100.0f);
     glViewport(0, 0, w, h);
   }
 
