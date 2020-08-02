@@ -2,17 +2,12 @@
 #include "common/path.h"
 #include "common/program.h"
 #include "common/utility.h"
+#include "data/premitives.h"
 #include "glm/fwd.hpp"
 #include "glm/glm.hpp"
 
 #include <array>
 #include <memory>
-
-// attributes
-static const std::array<GLfloat, 12> position = {
-    0.25, -0.25, 0.5, 1.0, -0.25, -0.25, 0.5, 1.0, 0.25, 0.25, 0.5, 1.0};
-static const std::array<GLfloat, 12> color = {
-    0.25, 0.25, 0.5, 1.0, 0.25, 0.25, 0.5, 1.0, 0.25, 0.25, 0.5, 1.0};
 
 class Ch501 : public Application {
 private:
@@ -22,10 +17,10 @@ private:
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 
     // initialize buffer
-    glNamedBufferStorage(vbo[0], byte_size(position), position.data(),
+    glNamedBufferStorage(vbo[0], byte_size(triangle), triangle.data(),
                          GL_DYNAMIC_STORAGE_BIT);
-    glNamedBufferStorage(vbo[1], byte_size(color), color.data(),
-                         GL_DYNAMIC_STORAGE_BIT);
+    glNamedBufferStorage(vbo[1], byte_size(triangle_color),
+                         triangle_color.data(), GL_DYNAMIC_STORAGE_BIT);
     // create and bind a vao
     if (glCreateVertexArrays) {
       glCreateVertexArrays(1, &vao_);
@@ -53,6 +48,7 @@ private:
   void shut_down() override { glDeleteVertexArrays(1, &vao_); }
 
   void draw_triangle() {
+    glClear(GL_COLOR_BUFFER_BIT);
     glUseProgram(shader_program_->Get());
     glDrawArrays(GL_TRIANGLES, 0, 3);
   }

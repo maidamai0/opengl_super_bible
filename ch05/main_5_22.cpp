@@ -2,20 +2,19 @@
 #include "common/path.h"
 #include "common/program.h"
 #include "common/utility.h"
+#include "data/premitives.h"
 #include "glm/ext/matrix_float4x4.hpp"
 #include "glm/ext/matrix_projection.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/ext/vector_float3.hpp"
+#include "glm/fwd.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
 #include <cmath>
 #include <memory>
-
-// attributes
-static const std::array<GLfloat, 12> position = {
-    0.25, -0.25, 0.5, 1.0, -0.25, -0.25, 0.5, 1.0, 0.25, 0.25, 0.5, 1.0};
+#include <vcruntime.h>
 
 constexpr auto model_view_location = 1;
 constexpr auto perspective_location = 2;
@@ -42,10 +41,10 @@ protected:
     // vbo
     glCreateBuffers(1, &vbo_);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-    glNamedBufferStorage(vbo_, byte_size(position), position.data(),
+    glNamedBufferStorage(vbo_, byte_size(cube), cube.data(),
                          GL_DYNAMIC_STORAGE_BIT);
-    glVertexArrayVertexBuffer(vao_, 0, vbo_, 0, sizeof(glm::vec4));
-    glVertexArrayAttribFormat(vao_, 0, 4, GL_FLOAT, GL_TRUE, 0);
+    glVertexArrayVertexBuffer(vao_, 0, vbo_, 0, sizeof(glm::vec3));
+    glVertexArrayAttribFormat(vao_, 0, 3, GL_FLOAT, GL_TRUE, 0);
     glEnableVertexArrayAttrib(vao_, 0);
   }
 
@@ -63,15 +62,14 @@ private:
     glUniformMatrix4fv(perspective_location, 1, GL_FALSE,
                        glm::value_ptr(get_perspective()));
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, cube.size());
   }
 
   auto calculate_projection_matrix() -> void {
-    const float time = glfwGetTime() * math_pi * 0.0001;
-    model_view_ =
-        glm::rotate(model_view_, time * 81.0f, glm::vec3(1.0, 0.0, 0.0));
-    model_view_ =
-        glm::rotate(model_view_, time * 45.0f, glm::vec3(0.0, 1.0, 0.0));
+    static size_t count = 0;
+    const float time = ++count * math_pi * 0.01;
+    model_view_ = glm::rotate(glm::mat4(1.0), time, glm::vec3(1.0, 0.0, 0.0));
+    model_view_ = glm::rotate(model_view_, time, glm::vec3(0.0, 1.0, 0.0));
     // model_view_ = glm::translate(model_view_, glm::vec3(0.0, 0.0, -4.0));
     // model_view_ = glm::translate(
     //     model_view_,
