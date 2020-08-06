@@ -124,3 +124,34 @@ Similar to `Unform`
 ### Atomic Counters
 
 ## Textures
+
+### cpp
+
+```plantuml
+CPU -> OpenGL: glCreateTextures
+CPU -> OpenGL: glTextureStorage*, initialize
+CPU -> OpenGL: glBindTexture
+CPU -> OpenGL: glTextureSubImage*, copy data
+```
+
+### shader
+
+```glsl
+uniform sampler* variable_name
+texelFetch()
+```
+
+The dimension of `sampler` in GLSL and `texture` in cpp must be the same `texture` and `shader` must are one-to-one.
+
+### Use multiple texture
+
+```plantuml
+CPU -> OpenGL: glCreateTexture
+CPU -> OpenGL: glBIndTextureUnit
+```
+
+### Texture filtering
+
+Fill values that are not valid in texure.
+
+### Mipmaps
