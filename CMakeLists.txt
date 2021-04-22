@@ -8,18 +8,7 @@ set(CMAKE_CXX_STANDARD 20)
 # glad
 add_subdirectory(deps)
 include_directories(deps/glad/include)
-
-# glfw
-find_package(glfw3 CONFIG REQUIRED)
-
-# fmtlib
-find_package(fmt CONFIG REQUIRED)
-
-# glm
-find_package(glm CONFIG REQUIRED)
-
-# tinyply
-find_package(tinyply CONFIG REQUIRED)
+include_directories(deps/tinyply/source)
 
 link_libraries(glfw glad fmt::fmt-header-only glm tinyply)
 

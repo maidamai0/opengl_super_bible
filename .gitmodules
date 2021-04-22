@@ -1,0 +1,12 @@
+[submodule "deps/glfw3"]
+  path = deps/glfw3
+  url = https://github.com/glfw/glfw.git
+[submodule "deps/fmt"]
+  path = deps/fmt
+  url = https://github.com/fmtlib/fmt.git
+[submodule "deps/glm"]
+  path = deps/glm
+  url = https://github.com/g-truc/glm.git
+[submodule "deps/tinyply"]
+  path = deps/tinyply
+  url = https://github.com/ddiakopoulos/tinyply.git
